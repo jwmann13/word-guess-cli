@@ -4,12 +4,9 @@ class Letter {
         this.guessed = false;
     }
 
-    guessedLetter() {
-        
-    }
-
-    checkGuess(char) {
-
+    checkGuess(guess) {
+        if (guess === this.letter) this.guessed = true
+        else this.guessed = this.guessed;
     }
 }
 
