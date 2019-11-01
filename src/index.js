@@ -1,22 +1,22 @@
 const inquirer = require('inquirer');
 const Word = require('./word');
+const randomWord = require('random-words')
 
-let toBeGuessed = new Word('apple');
-let counter = 0;
+let toBeGuessed = new Word(randomWord());
 
-function promptGuess() {
-    if (counter < toBeGuessed.characters.length) {
-        inquirer.prompt([{
-            name: 'guess',
-            message: 'Your guess?'
-        }]).then(answer => {            
-            console.log(toBeGuessed.checkGuess(answer.guess));
-            counter++;
-            promptGuess();
-        })
-    } else console.log(toBeGuessed.displayWord());
-    
+function promptGuess(_word) {
+    if (_word instanceof Word) {
+        if (!_word.guessed) {
+            inquirer.prompt([{
+                name: 'guess',
+                message: 'Your guess?'
+            }]).then(answer => {
+                console.log(_word.checkGuess(answer.guess), _word.guessed);
+                promptGuess(_word);
+            })
+        } else console.log(`${_word.displayWord().replace(/\s/g, '')} is the correct answer`);
+    }
 }
 
-promptGuess();
-// console.log(toBeGuessed, toBeGuessed.checkGuess('p'));
+console.log(toBeGuessed.displayWord())
+promptGuess(toBeGuessed);

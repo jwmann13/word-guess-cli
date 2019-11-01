@@ -1,8 +1,9 @@
-let Letter = require('./letter');
+const Letter = require('./letter');
 
 class Word {
     constructor(_word) {
         this.characters = this.parseWord(_word);
+        this.guessed = this.wholeWordGuessed();
     }
 
     parseWord(word) {
@@ -14,6 +15,10 @@ class Word {
         return letterArray;
     }
 
+    wholeWordGuessed() {
+        return this.characters.every(letter => letter.guessed);
+    }
+
     displayWord() {
         let toBeDisplayed = '';
         this.characters.forEach((letter) => {
@@ -22,7 +27,8 @@ class Word {
             } else {
                 toBeDisplayed += '_ ';
             }
-        })
+        });
+        this.guessed = this.wholeWordGuessed();
         return toBeDisplayed;
     }
 
