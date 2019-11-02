@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
 const Word = require('./word');
 const randomWord = require('random-words');
-const chalk = require('chalk')
+const chalk = require('chalk');
+let bold = chalk.bold;
 
 let toBeGuessed = new Word(randomWord());
 // let toBeGuessed = new Word('apple');
@@ -14,10 +15,10 @@ function promptGuess(_word) {
                 name: 'guess',
                 message: 'Your guess?'
             }]).then(answer => {
-                console.log(`${chalk.bold(_word.checkGuess(answer.guess))}\nYou have ${_word.lettersLeft} correct guesses left to win\nYou have ${_word.score} wrong guesses left to lose`);
+                console.log(`${bold(_word.checkGuess(answer.guess))}\nYou have ${_word.lettersLeft} correct guesses left to win\nYou have ${_word.score} wrong guesses left to lose`);
                 promptGuess(_word);
             })
-        } else console.log(`${chalk.bold(_word.displayWord().replace(/\s/g, ''))} is the correct answer`);
+        } else console.log(`${bold(_word.displayWord().replace(/\s/g, ''))} is the correct answer`);
     }
 }
 

@@ -1,5 +1,8 @@
 const Letter = require('./letter');
 const chalk = require('chalk');
+let win = chalk.green;
+let lose = chalk.red;
+let warning = chalk.blue;
 
 class Word {
     constructor(_word) {
@@ -51,7 +54,7 @@ class Word {
     checkGuess(guess) {
         // if guess has been made before tell the user
         if (this.pastGuesses.includes(guess)) {
-            return `${this.displayWord()}\nYou've already guessed that letter`
+            return `${this.displayWord()}\n${warning(`You've already guessed that letter`)}`
         } else {
             // boolean for if guess is in word
             let inWord = this.characters.some(l => l.letter == guess);
@@ -64,9 +67,9 @@ class Word {
             // if the guess isn't in the word lower the score
             if (!inWord) {
                 this.score--;
-                return chalk.red(`${this.displayWord()}\nThat's incorrect`);
+                return `${this.displayWord()}\n${lose(`That's incorrect`)}`;
             } else {
-                return chalk.green(`${this.displayWord()}\nThat's correct`);
+                return `${this.displayWord()}\n${win(`That's correct`)}`;
             }
 
         }
