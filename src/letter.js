@@ -5,7 +5,7 @@ class Letter {
     }
 
     checkGuess(guess) {
-        if (guess === this.letter) this.guessed = true
+        if (guess === this.letter) this.guessed = true;
         else this.guessed = this.guessed;
     }
 }
