@@ -1,4 +1,5 @@
 const Letter = require('./letter');
+const chalk = require('chalk');
 
 class Word {
     constructor(_word) {
@@ -7,7 +8,6 @@ class Word {
         this.score = 10;
         this.pastGuesses = [];
         this.lettersLeft = this.characters.length;
-        this.wrongGuesses = 0;
     }
 
     // takes in word string and puts each letter into a new Letter instance
@@ -16,7 +16,6 @@ class Word {
         for (const letter of word) {
             letterArray.push(new Letter(letter))
         }
-
         return letterArray;
     }
 
@@ -50,19 +49,24 @@ class Word {
 
     // checks the incoming guesses and then returns the display string
     checkGuess(guess) {
+        // if guess has been made before tell the user
         if (this.pastGuesses.includes(guess)) {
             return `${this.displayWord()}\nYou've already guessed that letter`
         } else {
+            // boolean for if guess is in word
             let inWord = this.characters.some(l => l.letter == guess);
+            // push guess to past guesses array
             this.pastGuesses.push(guess);
+            // run checkGuess() method from Letter on each letter
             this.characters.forEach(letter => {
                 letter.checkGuess(guess);
             })
+            // if the guess isn't in the word lower the score
             if (!inWord) {
                 this.score--;
-                return `${this.displayWord()}\nThat's incorrect`;
+                return chalk.red(`${this.displayWord()}\nThat's incorrect`);
             } else {
-                return `${this.displayWord()}\nThat's correct`;
+                return chalk.green(`${this.displayWord()}\nThat's correct`);
             }
 
         }
