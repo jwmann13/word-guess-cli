@@ -18,7 +18,7 @@ function promptGuess(_word) {
                 console.log(`${bold(_word.checkGuess(answer.guess))}\nYou have ${_word.lettersLeft} correct guesses left to win\nYou have ${_word.score} wrong guesses left to lose`);
                 promptGuess(_word);
             })
-        } else console.log(`${bold(_word.displayWord().replace(/\s/g, ''))} is the correct answer`);
+    } else console.log(`~   ~   ~   ~   ~   ~   ~   ~   \n${bold(_word.displayWord().replace(/\s/g, ''))} is the correct answer\n~  ~   ~   ~   ~   ~   ~   ~   `);
     }
 }
 
